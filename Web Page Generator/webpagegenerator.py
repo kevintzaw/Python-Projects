@@ -1,23 +1,53 @@
-f = open("demofile2.html", "a")
+import tkinter
+from tkinter import *
 
-#entering text
-enterText = input("Enter your text: ")
+class ParentWindow(Frame):
+    def __init__ (self, master):
+        Frame.__init__(self)
 
-#outputs text
-f.write('\
-<html> \
-<body> \
-<p id="demo"></p>\
-<script>\
-function myFunction() { \
-    var x = document.getElementById("enterText");\
-    document.getElementById("demo").innerHTML = x;\
-}\
-</script>\
-</body> \
-</html>')
-f.close()
+        self.master = master
+        self.master.resizable(width=False, height=False)
+        self.master.title('Learning Tkinter!')
+        self.master.config(bg='lightgray')
 
-#open and read the file after the appending:
-f = open("demofile2.html", "r")
-print(f.read())
+        self.varBodytext = StringVar()
+
+        self.lblDisplay = Label(self.master, text='', font=("Helvetica",16), fg='black', bg='lightgray')
+        self.lblDisplay.grid(row=3, column=1, padx=(30,0), pady=(30,0))
+
+        self.txtBodytext = Entry(self.master,text=self.varBodytext, font=("Helvetica", 16), fg='black', bg='lightblue')
+        self.txtBodytext.grid(row=1, column=1, padx=(30,0), pady=(30,0))
+
+        self.btnSubmit = Button(self.master, text="Submit", width=10, height=2, command=self.submit)
+        self.btnSubmit.grid(row=2, column=1, padx=(0,0), pady=(30,0), sticky=NE)
+
+        
+
+    def submit(self):
+        bodytext = self.varBodytext.get()
+        self.lblDisplay.config(text='Your text is {}!'.format(bodytext))
+
+        #creates HTML file
+        f = open("demofile2.html", "a")
+        
+        #outputs text
+        f.write('\
+        <html> \
+        <body> \
+        <p id="demo"></p>\
+        <script>\
+        function myFunction() { \
+        var x = document.getElementById("varBodytext");\
+        document.getElementById("demo").innerHTML = x;\
+        }\
+        </script>\
+        </body> \
+        </html>')
+        f.close()
+
+
+if __name__ == "__main__":
+    root = Tk()
+    App = ParentWindow(root)
+    root.mainloop()
+
