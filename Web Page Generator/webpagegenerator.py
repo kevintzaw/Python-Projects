@@ -30,13 +30,13 @@ class ParentWindow(Frame):
         finaltext = "<html> <body> {} </body> </html>".format(bodytext)
         print(finaltext)
         #creates HTML file
-        f = open("demofile2.html", "a")
+        f = open("demofile2.html", "w")
         
         #outputs text
         f.write(finaltext)
         f.close()
 
-        filename = 'file:///Users/kevinzaw/Documents/GitHub/Python Projects/Web Page Generator/demofile2.html'
+        filename = 'demofile2.html'
         webbrowser.open_new_tab(filename)
 
 
