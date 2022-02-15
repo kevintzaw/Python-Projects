@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import *
+import webbrowser
 
 class ParentWindow(Frame):
     def __init__ (self, master):
@@ -26,24 +27,17 @@ class ParentWindow(Frame):
     def submit(self):
         bodytext = self.varBodytext.get()
         self.lblDisplay.config(text='Your text is {}!'.format(bodytext))
-
+        finaltext = "<html> <body> {} </body> </html>".format(bodytext)
+        print(finaltext)
         #creates HTML file
         f = open("demofile2.html", "a")
         
         #outputs text
-        f.write('\
-        <html> \
-        <body> \
-        <p id="demo"></p>\
-        <script>\
-        function myFunction() { \
-        var x = document.getElementById("varBodytext");\
-        document.getElementById("demo").innerHTML = x;\
-        }\
-        </script>\
-        </body> \
-        </html>')
+        f.write(finaltext)
         f.close()
+
+        filename = 'file:///Users/kevinzaw/Documents/GitHub/Python Projects/Web Page Generator/demofile2.html'
+        webbrowser.open_new_tab(filename)
 
 
 if __name__ == "__main__":
