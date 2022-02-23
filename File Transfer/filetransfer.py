@@ -6,6 +6,7 @@ import time
 import tkinter
 from tkinter import *
 import webbrowser
+from tkinter import filedialog
 
 #setting an input screen
 class ParentWindow(Frame):
@@ -29,22 +30,35 @@ class ParentWindow(Frame):
 
         #entry for Destination Source
         self.txtFolderDestinationtext = Entry(self.master,text=self.varFolderDestinationtext, font=("Helvetica", 16), fg='black', bg='lightblue')
-        self.txtFolderDestinationtext.grid(row=1, column=1, padx=(30,0), pady=(30,0))
+        self.txtFolderDestinationtext.grid(row=2, column=1, padx=(30,0), pady=(30,0))
 
         #submit button
         self.btnSubmit = Button(self.master, text="Submit", width=10, height=2, command=self.submit)
-        self.btnSubmit.grid(row=2, column=1, padx=(0,0), pady=(30,0), sticky=NE)
+        self.btnSubmit.grid(row=3, column=1, padx=(0,0), pady=(30,0), sticky=NE)
 
- def submit(self):
+    def chooseDest(self):
+        #allows the user to choose the destinaton folder, and saves it to "dest"
+        dest = filedialog.askdirectory()
+        #inserts the path to the "dest" folder into the second Entry widget
+        self.txtFolderDestinationtext.insert(0, dest)
+        #button for choosing the source folder
+        self.btnSource = Button(self.master, text="Choose Source", command=self.chooseSource)
+        self.btnSource.grid(row=1, column=2, padx=(30,0), pady=(30,0))
+
+        #button for choosing the destination folder
+        self.btnDest = Button(self.master, text="Choose Destination", command=self.chooseDest)
+        self.btnDest.grid(row=2, column=2, padx=(30,0), pady=(30,0))
+
+    def submit(self):
         #set what the source folder is
         varSource = self.varFolderSourcetext.get()
         #set what the destination folder is
-        varDestination = self.varDestinationSourcetext.get()
+        varDestination = self.varFolderDestinationtext.get()
         files = os.listdir(varSource)
 
         for i in files:
             #we are saying move the files represented by 'i' to their new destination
-            shutil.move(varSource+i, destination)
+            shutil.move(varSource+i, varDestination)
 
 if __name__ == "__main__":
     root = Tk()
