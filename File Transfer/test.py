@@ -65,7 +65,22 @@ class ParentWindow(Frame):
 
         for i in files:
             #we are saying move the files represented by 'i' to their new destination
-            shutil.move(varSource+i, varDestination)
+            print (i)
+            print (varSource+"/"+i)
+
+            variablePlusI = varSource+"/"+i
+
+            #create variable for path and print how long it takes
+            modification_time = os.path.getmtime(variablePlusI)
+            print("Last modification tim since the epoch:", modification_time)
+
+            #convert time in seconds since localtime
+            localtime = time.ctime(modification_time)
+            print("Last modification time(Local time):", localtime)
+
+            if modification_time > 86400:
+                if i != ".DS_Store":
+                    shutil.move(variablePlusI, varDestination)
 
 if __name__ == "__main__":
     root = Tk()
