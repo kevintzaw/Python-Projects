@@ -2,7 +2,7 @@ from unicodedata import name
 from django.urls import path
 from . import views
 
-urlpatters = [
+urlpatterns = [
     path('', views.home, name='index'),
     path('creative/', views.create_account, name='create'),
     path('balance/', views.balance, name='balance'),
