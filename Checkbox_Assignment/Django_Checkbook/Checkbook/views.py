@@ -19,4 +19,10 @@ def balance(request):
     return render(request, 'checkbook/BalanceSheet.html')
 
 def transaction(request):
-    return render(request, 'checkbook/AddTransaction.html')
+    form = TransactionForm(data=request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    content = {'form': form}
+    return render(request, 'checkbook/AddTransaction.html', content)
