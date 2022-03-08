@@ -9,6 +9,11 @@ class Account(models.Model):
 
     Accounts = models.Manager()
 
+    # Allows references to a specific account be returned
+    # as the owner's name not the primary key
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
+
 TransactionTypes = [('Deposit', 'Deposit'), ('Withdrawal', 'Withdrawal')]
 
 class Transaction(models.Model):
@@ -19,8 +24,3 @@ class Transaction(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     Transactions = models.Manager()
-
-    #Allows references to a specific account be returned
-    # as the owner's name not the primary key
-    def __str__(self):
-        return self.first_name + ' ' + self.last_name

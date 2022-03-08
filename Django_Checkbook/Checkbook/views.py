@@ -10,7 +10,7 @@ def home(request):
         pk = request.POST['account']
         return balance(request, pk)
     content = {'form': form}
-    return render(request, 'checkbook/index.html')
+    return render(request, 'checkbook/index.html', content)
 
 def create_account(request):
     form = AccountForm(data=request.POST or None)
